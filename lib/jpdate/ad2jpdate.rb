@@ -16,11 +16,15 @@ module AD2Jpdate
   }
 
   def to_jadate(format = "%o%J.%m.%d")
-    jpdate = strfera(format)
-    jpdate.map! do |fmt|
-      self.strftime(fmt)
+    jpdates = strfera(format)
+    # jpdatesは和暦変換した後の要素が入った配列
+    # それぞれの要素に対してTime#strftimeを施す
+    jpdates.map! do |jpdate|
+      self.strftime(jpdate)
     end
   end
+
+  private
 
   def strfera(format)
     date = self.strftime("%Y%m%d").to_i
