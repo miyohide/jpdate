@@ -88,7 +88,14 @@ describe "Time#to_jadate" do
       subject { Time.mktime(1989, 1, 9).to_jadate }
       it { is_expected.to eql(["H01.01.09"])}
     end
-
   end
+
+  describe "format type field" do
+    context "type field is %O" do
+      subject { Time.mktime(1989, 1, 9).to_jadate("%O%J年%m月%d日") }
+      it { is_expected.to eql(["平成01年01月09日"])}
+    end
+  end
+
 
 end
