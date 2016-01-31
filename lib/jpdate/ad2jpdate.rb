@@ -1,6 +1,7 @@
 require_relative "jpdate"
 
 module AD2Jpdate
+  # 明治は1868年からだが、1873年までは日本は天保暦であったため、とりあえず未対応
   MEIJI_ERA  = 18730101..19120730
   TAISHO_ERA = 19120730..19261225
   SHOWA_ERA  = 19261225..19890107
@@ -16,6 +17,12 @@ module AD2Jpdate
   }
 
   def to_jadate(format = "%o%J.%m.%d")
+  # return to Japanese date
+  # @param [String] format format string. Time#strftime format string +
+  #                 %o : Short Japanese era name.("M","T","S" or "H")
+  #                 %O : Japanese era name.("明治", "大正", "昭和" or "平成")
+  #                 %J : Jananese era year.
+  # @return [String] formated Japanese date.
     jpdates = strfera(format)
     # jpdatesは和暦変換した後の要素が入った配列
     # それぞれの要素に対してTime#strftimeを施す
