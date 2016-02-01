@@ -16,13 +16,13 @@ module AD2Jpdate
     heisei: { en: "H", ja: "平成", year: Jpdate::HEISEI }
   }
 
-  def to_jadate(format = "%o%J.%m.%d")
   # return to Japanese date
   # @param [String] format format string. Time#strftime format string +
   #                 %o : Short Japanese era name.("M","T","S" or "H")
   #                 %O : Japanese era name.("明治", "大正", "昭和" or "平成")
   #                 %J : Jananese era year.
   # @return [String] formated Japanese date.
+  def to_jp(format = "%o%J.%m.%d")
     jpdates = strfera(format)
     # jpdatesは和暦変換した後の要素が入った配列
     # それぞれの要素に対してTime#strftimeを施す
