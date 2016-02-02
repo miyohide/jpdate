@@ -31,6 +31,19 @@ class Jpdate
     validate!
   end
 
+  def to_date
+    case @name
+    when "M"
+      Date.new(MEIJI + @year, @month, @day)
+    when "T"
+      Date.new(TAISHO + @year, @month, @day)
+    when "S"
+      Date.new(SHOWA + @year, @month, @day)
+    when "H"
+      Date.new(HEISEI + @year, @month, @day)
+    end
+  end
+
   private
 
   def validate!

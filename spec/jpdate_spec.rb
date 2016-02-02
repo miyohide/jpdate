@@ -75,4 +75,30 @@ describe Jpdate do
       end
     end
   end
+
+  describe "#to_date" do
+    context "MEIJI" do
+      it "return current A.D. Date" do
+        expect(Jpdate.new("M", 6, 1, 1).to_date).to eq(Date.new(1873, 1, 1))
+      end
+    end
+
+    context "TAISHO" do
+      it "return current A.D. Date" do
+        expect(Jpdate.new("T", 1, 1, 1).to_date).to eq(Date.new(1912, 1, 1))
+      end
+    end
+
+    context "SHOWA" do
+      it "return current A.D. Date" do
+        expect(Jpdate.new("S", 1, 1, 1).to_date).to eq(Date.new(1926, 1, 1))
+      end
+    end
+
+    context "HEISEI" do
+      it "return current A.D. Date" do
+        expect(Jpdate.new("H", 1, 1, 1).to_date).to eq(Date.new(1989, 1, 1))
+      end
+    end
+  end
 end
