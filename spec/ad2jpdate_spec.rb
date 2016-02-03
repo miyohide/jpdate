@@ -96,6 +96,26 @@ describe "Time#to_jp" do
       it { is_expected.to eql(["平成01年01月09日"])}
     end
   end
+end
 
+describe "Date#to_jp" do
+  context "Meiji" do
+    subject { Date.new(1873, 1, 1).to_jp }
+    it { is_expected.to eql(["M06.01.01"]) }
+  end
 
+  context "Taisho" do
+    subject { Date.new(1912, 7, 30).to_jp }
+    it { is_expected.to eql(["M45.07.30", "T01.07.30"]) }
+  end
+
+  context "SHOWA" do
+    subject { Date.new(1926, 12, 26).to_jp }
+    it { is_expected.to eql(["S01.12.26"]) }
+  end
+
+  context "Heisei" do
+    subject { Date.new(1989, 1, 9).to_jp }
+    it { is_expected.to eql(["H01.01.09"]) }
+  end
 end

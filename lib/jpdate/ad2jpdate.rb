@@ -57,3 +57,7 @@ end
 class Time
   include AD2Jpdate
 end
+
+class Date
+  include AD2Jpdate
+end
