@@ -1,12 +1,18 @@
 # Jpdate
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/jpdate`. To experiment with that code, run `bin/console` for an interactive prompt.
+Jpdateは西暦を和暦に変換するGemです。
 
-TODO: Delete this and the text above, and describe your gem
+```ruby
+Time.mktime(1873, 1, 1).to_jp  # => ["M06.01.01"]
+```
+
+のように`Time`クラスに対して`to_jp`メソッドを呼び出すと、和暦変換した値が配列として帰ってきます。
+
+配列として返す理由は、明治〜大正、大正〜昭和は同じ西暦で明治と大正、大正と昭和のパターンが有るためです。
+
+また、明治は本来1868年からだが、明治5年までは天保暦であったため、現在使われている暦とは若干異なる。この対応は出来ていないため、このgemでは1873年1月1日以降からの対応としている。
 
 ## Installation
-
-Add this line to your application's Gemfile:
 
 ```ruby
 gem 'jpdate'
@@ -22,20 +28,25 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+Date.new(1873, 1, 1).to_jp  # => ["M06.01.01"]
+Time.mktime(1989, 1, 9).to_jp # => ["H01.01.09"]
+Time.mktime(1926, 12, 25).to_jp # => ["T15.12.25", "S01.12.25"]
 
-## Development
+# %O is wareki Kanji name (%J is wareki year)
+Time.mktime(1989, 1, 9).to_jp("%O%J年%m月%d日") # => ["平成01年01月09日"]
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+# %o is wareki symble
+Time.mktime(1989, 1, 9).to_jp("%o%J.%m.%d") # => ["H01.01.09"]
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+# Jpdate#to_date returns Date instance
+Jpdate.new("H", 1, 1, 1).to_date # => #<Date: 1989-01-01 ((2447528j,0s,0n),+0s,2299161j)>
+```
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/jpdate.
-
+Bug reports and pull requests are welcome on GitHub at https://github.com/miyohide/jpdate.
 
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
