@@ -16,6 +16,8 @@ module AD2Jpdate
     heisei: { en: "H", ja: "平成", year: Jpdate::HEISEI }
   }
 
+  JP_ERAS = Struct.new(:meiji, :taisho, :showa, :heisei)
+
   # return to Japanese date
   # @param [String] format format string. Time#strftime format string +
   #                 %o : Short Japanese era name.("M","T","S" or "H")
@@ -23,12 +25,7 @@ module AD2Jpdate
   #                 %J : Jananese era year.
   # @return [String] formated Japanese date.
   def to_jp(format = "%o%J.%m.%d")
-    jpdates = strfera(format)
-    # jpdatesは和暦変換した後の要素が入った配列
-    # それぞれの要素に対してTime#strftimeを施す
-    jpdates.map! do |jpdate|
-      self.strftime(jpdate)
-    end
+    strfera(format)
   end
 
   private
@@ -37,11 +34,11 @@ module AD2Jpdate
     date = self.strftime("%Y%m%d").to_i
     raise RangeError, RANGE_ERROR_MSG_STRING if date < MEIJI_ERA.min
 
-    jpdate = []
-    jpdate << convert_eraformat(format, :meiji) if MEIJI_ERA.include?(date)
-    jpdate << convert_eraformat(format, :taisho) if TAISHO_ERA.include?(date)
-    jpdate << convert_eraformat(format, :showa) if SHOWA_ERA.include?(date)
-    jpdate << convert_eraformat(format, :heisei) if date >= HEISEI_ERA
+    jpdate = JP_ERAS.new
+    jpdate.meiji  = convert_stdformat(convert_eraformat(format, :meiji)) if MEIJI_ERA.include?(date)
+    jpdate.taisho = convert_stdformat(convert_eraformat(format, :taisho)) if TAISHO_ERA.include?(date)
+    jpdate.showa  = convert_stdformat(convert_eraformat(format, :showa)) if SHOWA_ERA.include?(date)
+    jpdate.heisei = convert_stdformat(convert_eraformat(format, :heisei)) if date >= HEISEI_ERA
     jpdate
   end
 
@@ -51,6 +48,10 @@ module AD2Jpdate
     jpdate.gsub!(/%O/, era[:ja])
     jpdate.gsub!(/%J/, sprintf("%02d", year - era[:year]))
     jpdate
+  end
+
+  def convert_stdformat(format)
+    self.strftime(format)
   end
 end
 
