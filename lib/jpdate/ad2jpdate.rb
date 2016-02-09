@@ -38,14 +38,14 @@ module AD2Jpdate
     raise RangeError, RANGE_ERROR_MSG_STRING if date < MEIJI_ERA.min
 
     jpdate = []
-    jpdate << convert(format, :meiji) if MEIJI_ERA.include?(date)
-    jpdate << convert(format, :taisho) if TAISHO_ERA.include?(date)
-    jpdate << convert(format, :showa) if SHOWA_ERA.include?(date)
-    jpdate << convert(format, :heisei) if date >= HEISEI_ERA
+    jpdate << convert_eraformat(format, :meiji) if MEIJI_ERA.include?(date)
+    jpdate << convert_eraformat(format, :taisho) if TAISHO_ERA.include?(date)
+    jpdate << convert_eraformat(format, :showa) if SHOWA_ERA.include?(date)
+    jpdate << convert_eraformat(format, :heisei) if date >= HEISEI_ERA
     jpdate
   end
 
-  def convert(format, era_name)
+  def convert_eraformat(format, era_name)
     era = JP_ERA[era_name]
     jpdate = format.gsub(/%o/, era[:en])
     jpdate.gsub!(/%O/, era[:ja])
