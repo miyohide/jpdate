@@ -29,15 +29,15 @@ Or install it yourself as:
 ## Usage
 
 ```ruby
-Date.new(1873, 1, 1).to_jp  # => ["M06.01.01"]
-Time.mktime(1989, 1, 9).to_jp # => ["H01.01.09"]
-Time.mktime(1926, 12, 25).to_jp # => ["T15.12.25", "S01.12.25"]
+Date.new(1873, 1, 1).to_jp  # => #<struct AD2Jpdate::JP_ERAS meiji="M06.01.01", taisho=nil, showa=nil, heisei=nil>
+Time.mktime(1989, 1, 9).to_jp # => #<struct AD2Jpdate::JP_ERAS meiji=nil, taisho=nil, showa=nil, heisei="H01.01.09">
+Time.mktime(1926, 12, 25).to_jp # => #<struct AD2Jpdate::JP_ERAS meiji=nil, taisho="T15.12.25", showa="S01.12.25", heisei=nil>
 
 # %O is wareki Kanji name (%J is wareki year)
-Time.mktime(1989, 1, 9).to_jp("%O%J年%m月%d日") # => ["平成01年01月09日"]
+Time.mktime(1989, 1, 9).to_jp("%O%J年%m月%d日") # => #<struct AD2Jpdate::JP_ERAS meiji=nil, taisho=nil, showa=nil, heisei="平成01年01月09日">
 
 # %o is wareki symble
-Time.mktime(1989, 1, 9).to_jp("%o%J.%m.%d") # => ["H01.01.09"]
+Time.mktime(1989, 1, 9).to_jp("%o%J.%m.%d") # => #<struct AD2Jpdate::JP_ERAS meiji=nil, taisho=nil, showa=nil, heisei="H01.01.09">
 
 # Jpdate#to_date returns Date instance
 Jpdate.new("H", 1, 1, 1).to_date # => #<Date: 1989-01-01 ((2447528j,0s,0n),+0s,2299161j)>
