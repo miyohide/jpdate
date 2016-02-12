@@ -50,8 +50,8 @@ describe "Time#to_jp" do
     end
 
     context "Taisho era start + 1" do
-      it { expect(subject.meiji).to be_nil }
       subject { Time.mktime(1912, 7, 31).to_jp }
+      it { expect(subject.meiji).to be_nil }
       it { expect(subject.taisho).to eql("T01.07.31") }
       it { expect(subject.showa).to be_nil }
       it { expect(subject.heisei).to be_nil }
