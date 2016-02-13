@@ -35,9 +35,9 @@ module AD2Jpdate
     raise RangeError, RANGE_ERROR_MSG_STRING if date < MEIJI_ERA.min
 
     jpdate = JP_ERAS.new
-    jpdate.meiji  = convert_stdformat(convert_eraformat(format, :meiji)) if MEIJI_ERA.include?(date)
-    jpdate.taisho = convert_stdformat(convert_eraformat(format, :taisho)) if TAISHO_ERA.include?(date)
-    jpdate.showa  = convert_stdformat(convert_eraformat(format, :showa)) if SHOWA_ERA.include?(date)
+    jpdate.meiji  = convert_stdformat(convert_eraformat(format, :meiji)) if date >= MEIJI_ERA.min
+    jpdate.taisho = convert_stdformat(convert_eraformat(format, :taisho)) if date >= TAISHO_ERA.min
+    jpdate.showa  = convert_stdformat(convert_eraformat(format, :showa)) if date >= SHOWA_ERA.min
     jpdate.heisei = convert_stdformat(convert_eraformat(format, :heisei)) if date >= HEISEI_ERA
     jpdate
   end
