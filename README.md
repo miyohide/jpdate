@@ -1,4 +1,5 @@
 # Jpdate
+[![Build Status](https://travis-ci.org/miyohide/jpdate.svg?branch=master)](https://travis-ci.org/miyohide/jpdate)
 
 Jpdateは西暦を和暦に変換するGemです。
 
